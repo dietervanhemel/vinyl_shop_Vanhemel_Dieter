@@ -17,6 +17,8 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->boolean('active')->default(true);
+            $table->boolean('admin')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -28,7 +30,7 @@ class CreateUsersTable extends Migration
                 [
                     'name' => 'Dieter Vanhemel',
                     'email' => 'r0670539@student.thomasmore.be',
-
+                    'admin' => true,
                     'password' => Hash::make('admin1234'),
                     'created_at' => now(),
                     'email_verified_at' => now()
@@ -36,7 +38,7 @@ class CreateUsersTable extends Migration
                 [
                     'name' => 'Jane Doe',
                     'email' => 'jane.doe@example.com',
-
+                    'admin' => false,
                     'password' => Hash::make('user1234'),
                     'created_at' => now(),
                     'email_verified_at' => now()
