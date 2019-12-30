@@ -11360,3 +11360,16 @@ main {
   min-height: 500px;
 }
 
+.weg {
+  display: none;
+}
+
+.card {
+  cursor: pointer;
+}
+
+.card .btn,
+form .btn {
+  display: none;
+}
+
