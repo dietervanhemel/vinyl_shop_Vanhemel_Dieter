@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="shortcut icon" href="<?php echo asset('assets/icons/favicon.ico'); ?>">
     <title>@yield('title', 'The Vinyl Shop')</title>
+    @yield('css_after')
+    <script src="{{ mix('js/app.js') }}"></script>
+    @yield('script_after')
 </head>
 <body>
 @include('shared.navigation')
