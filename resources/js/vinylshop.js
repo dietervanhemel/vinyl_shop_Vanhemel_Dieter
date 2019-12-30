@@ -1,6 +1,7 @@
 export function hello() {
     console.log('The Vinyl Shop JavaScript works! 🙂');
 }
+
 export function to_mm_ss(duration) {
     let seconds = parseInt((duration / 1000) % 60);
     let minutes = parseInt((duration / (1000 * 60)) % 60);
@@ -10,10 +11,15 @@ export function to_mm_ss(duration) {
     return duration;
 }
 
-$(function(){
+$(function () {
     $('nav i.fas').addClass('fa-fw mr-1');
+    $('body').tooltip({
+        selector: '[data-toggle="tooltip"]',
+        html: true,
+    });
 });
 
-$(document).ready( function() {
+$(document).ready(function () {
     $('.dropdown-toggle').dropdown();
 });
+

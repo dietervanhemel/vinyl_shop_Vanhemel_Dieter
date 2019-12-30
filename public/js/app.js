@@ -37082,6 +37082,10 @@ function to_mm_ss(duration) {
 }
 $(function () {
   $('nav i.fas').addClass('fa-fw mr-1');
+  $('body').tooltip({
+    selector: '[data-toggle="tooltip"]',
+    html: true
+  });
 });
 $(document).ready(function () {
   $('.dropdown-toggle').dropdown();
