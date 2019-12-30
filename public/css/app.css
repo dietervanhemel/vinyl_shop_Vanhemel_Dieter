@@ -11368,8 +11368,3 @@ main {
   cursor: pointer;
 }
 
-.card .btn,
-form .btn {
-  display: none;
-}
-

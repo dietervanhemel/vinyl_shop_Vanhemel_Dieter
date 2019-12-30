@@ -9,3 +9,11 @@ export function to_mm_ss(duration) {
     duration = minutes + ':' + seconds;
     return duration;
 }
+
+$(function(){
+    $('nav i.fas').addClass('fa-fw mr-1');
+});
+
+$(document).ready( function() {
+    $('.dropdown-toggle').dropdown();
+});

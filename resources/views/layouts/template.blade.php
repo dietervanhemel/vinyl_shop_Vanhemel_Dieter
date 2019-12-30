@@ -13,9 +13,15 @@
 <body>
 @include('shared.navigation')
 <main class="container mt-3">
-    @yield('main', 'Page under construction...')
+    @yield('main', 'Page under construction ...')
 </main>
 @include('shared.footer')
 <script src="{{ mix('js/app.js') }}"></script>
+@yield('script_after')
+@if(env('APP_DEBUG'))
+    <script>
+        $('form').attr('novalidate', 'true');
+    </script>
+@endif
 </body>
 </html>
