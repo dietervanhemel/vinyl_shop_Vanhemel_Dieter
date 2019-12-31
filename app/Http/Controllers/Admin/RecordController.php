@@ -66,6 +66,8 @@ class RecordController extends Controller
         // Go to the public detail page for the newly created record
         session()->flash('success', "The record <b>$record->title</b> from <b>$record->artist</b> has been added");
         return redirect("/shop/$record->id");
+
+
     }
 
     /**
