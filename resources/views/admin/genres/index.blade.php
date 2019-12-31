@@ -169,10 +169,10 @@
                                    data-name="${value.name}">
                                     <div class="btn-group btn-group-sm">
                                         <a href="#!" class="btn btn-outline-success btn-edit">
-                                            <i class="fas fa-edit">edit</i>
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                         <a href="#!" class="btn btn-outline-danger btn-delete">
-                                            <i class="fas fa-trash">delete</i>
+                                            <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
                                </td>
