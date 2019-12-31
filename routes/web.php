@@ -12,18 +12,8 @@
 */
 
 Auth::routes();
-// Route::get('/home', 'HomeController@index')->name('home');
-Route::view('/', 'home');
-
-Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
-
-
-Route::get('/', function () {
-    //return view('welcome');
-    return 'The Vinyl Shop';
-});
-
+// Route::get('/home', 'HomeController@index')->name('home');php artisan route:list
 
 Route::view('/', 'home');
 Route::get('shop', 'ShopController@index');
@@ -31,27 +21,16 @@ Route::get('shop/{id}', 'ShopController@show');
 Route::get('shop_alt', 'ShopController@shopAlt');
 Route::get('contact-us', 'ContactUsController@show');
 Route::post('contact-us', 'ContactUsController@sendEmail');
-Route::prefix('admin')->group(function () {
-    Route::redirect('/', 'records');
-    Route::get('records', 'Admin\RecordController@index');
-
-});
-Route::redirect('user', '/user/profile');
-Route::middleware(['auth'])->prefix('user')->group(function () {
-    Route::get('profile', 'User\ProfileController@edit');
-    Route::post('profile', 'User\ProfileController@update');
-});
-Route::get('contact', function () {
-    $me = ['name' => env('MAIL_FROM_NAME')];
-    return view('contact', $me);
-});
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    route::redirect('/', 'records');
+    Route::redirect('/', 'records');
     Route::get('genres/qryGenres', 'Admin\GenreController@qryGenres');
     Route::resource('genres', 'Admin\GenreController');
     Route::resource('records', 'Admin\RecordController');
+    Route::resource('users', 'Admin\UserController');
+
 });
+
 Route::redirect('user', '/user/profile');
 Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::get('profile', 'User\ProfileController@edit');
@@ -59,5 +38,3 @@ Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::get('password', 'User\PasswordController@edit');
     Route::post('password', 'User\PasswordController@update');
 });
-
-
