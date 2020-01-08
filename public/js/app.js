@@ -40210,19 +40210,22 @@ function to_mm_ss(duration) {
   return duration;
 }
 $(function () {
+  $('input[required], select[required], textarea[required]').each(function () {
+    $(this).closest('.form-group').find('label').append('<sup class="text-danger mx-1">*</sup>');
+  });
   $('nav i.fas').addClass('fa-fw mr-1');
   $('body').tooltip({
     selector: '[data-toggle="tooltip"]',
     html: true
   });
+  Noty.overrideDefaults({
+    layout: 'topRight',
+    theme: 'bootstrap-v4',
+    timeout: 3000
+  });
 });
 $(document).ready(function () {
   $('.dropdown-toggle').dropdown();
-});
-Noty.overrideDefaults({
-  layout: 'topRight',
-  theme: 'bootstrap-v4',
-  timeout: 3000
 });
 
 /***/ }),

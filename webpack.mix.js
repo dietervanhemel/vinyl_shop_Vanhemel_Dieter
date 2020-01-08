@@ -18,3 +18,4 @@ mix.browserSync({
     port: 3000
 });
 mix.version();
+mix.disableNotifications();

@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Genre;
 use App\Record;
+use Facades\App\Helpers\Json;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Facades\App\Helpers\Json;
+
 class RecordController extends Controller
 {
     /**
@@ -38,19 +39,26 @@ class RecordController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Record $record)
     {
         $this->validate($request, [
             'artist' => 'required',
             'artist_mbid' => 'required|size:36',  // size:36 length is exact 36 characters
             'title' => 'required',
-            'title_mbid' => 'required|size:36|unique:records,title_mbid',
+            'title_mbid' => 'required|size:36|unique:records,title_mbid,' . $record->id,
             'price' => 'required|numeric',
             'stock' => 'required|integer',
             'genre_id' => 'required',
+        ], [
+            'artist_mbid.required' => 'The Artist MusicBrainz ID is required.',
+            'artist_mbid.size' => 'The Artist MusicBrainz ID must be :size characters.',
+            'title_mbid.required' => 'The Title MusicBrainz ID is required.',
+            'title_mbid.size' => 'The Title MusicBrainz ID must be :size characters.',
+            'title_mbid.unique' => 'This record already exists!',
+            'genre_id.required' => 'Please select a genre.',
         ]);
 
         $record = new Record();
@@ -64,16 +72,14 @@ class RecordController extends Controller
         $record->genre_id = $request->genre_id;
         $record->save();
         // Go to the public detail page for the newly created record
-        session()->flash('success', "The record <b>$record->title</b> from <b>$record->artist</b> has been added");
+        session()->flash('success', "The record <b>$record->title</b> from <b>$record->artist</b> has been updated");
         return redirect("/shop/$record->id");
-
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Record  $record
+     * @param \App\Record $record
      * @return \Illuminate\Http\Response
      */
     public function show(Record $record)
@@ -84,7 +90,7 @@ class RecordController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Record  $record
+     * @param \App\Record $record
      * @return \Illuminate\Http\Response
      */
     public function edit(Record $record)
@@ -98,8 +104,8 @@ class RecordController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Record  $record
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Record $record
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Record $record)
@@ -138,7 +144,7 @@ class RecordController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Record  $record
+     * @param \App\Record $record
      * @return \Illuminate\Http\Response
      */
     public function destroy(Record $record)

@@ -6,6 +6,7 @@ use App\User;
 use Facades\App\Helpers\Json;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -105,16 +106,22 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required|unique:users,name,' . $user->id,
             'email' => 'required|unique:users,email,' . $user->id,
         ]);
         $user->name = $request->name;
         $user->email = $request->email;
-        if($request->active == 'on') {$user->active = 1;}
-        else {$user->active = 0;}
-        if($request->admin) {$user->admin = 1;}
-        else {$user->admin = 0;}
+        if ($request->active == 'on') {
+            $user->active = 1;
+        } else {
+            $user->active = 0;
+        }
+        if ($request->admin) {
+            $user->admin = 1;
+        } else {
+            $user->admin = 0;
+        }
         $user->save();
         session()->flash('success', 'The User has been updated');
         return redirect('admin/users');
@@ -128,9 +135,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
-        session()->flash('success', "The genre <b>$user->name</b> has been deleted");
-        return redirect('admin/users');
+        if (Auth::user()->name == $user->name) {
+            session()->flash('danger', "In order not to exclude yourself from (the admin section of) the application, you cannot delete your own profile");
+            return redirect('admin/users');
+        } else {
+            $user->delete();
+            session()->flash('success', "The user <b>$user->name</b> has been deleted");
+            return redirect('admin/users');
+        }
     }
 }
 

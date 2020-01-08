@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
 // Route::get('/home', 'HomeController@index')->name('home');php artisan route:list
@@ -28,7 +27,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('genres', 'Admin\GenreController');
     Route::resource('records', 'Admin\RecordController');
     Route::resource('users', 'Admin\UserController');
-
+    Route::resource('users2', 'Admin\User2Controller', ['parameters' => ['users2' => 'user']]);
 });
 
 Route::redirect('user', '/user/profile');
@@ -38,3 +37,4 @@ Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::get('password', 'User\PasswordController@edit');
     Route::post('password', 'User\PasswordController@update');
 });
+

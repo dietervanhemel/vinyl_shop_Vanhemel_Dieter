@@ -58,7 +58,7 @@
                     <td>{{ $user->email }}</td>
                     <td>@if ($user->active) <i class="fas fa-check"></i> @endif</td>
                     <td>@if ($user->admin) <i class="fas fa-check"></i> @endif</td>
-                    <td data-id="{{$user->id}}" data-name="{{$user->name}}">
+                    <td data-name="{{$user->name}}">
                         <form action="/admin/users/{{ $user->id }}" method="post" id="delete_form">
                             @method('delete')
                             @csrf
@@ -108,7 +108,6 @@
 
             $('tbody').on('click', '.btn-delete', function () {
                 // Get data attributes from td tag
-                let id = $(this).closest('td').data('id');
                 let name = $(this).closest('td').data('name');
 
                 // Set some values for Noty
@@ -139,3 +138,4 @@
         });
     </script>
 @endsection
+

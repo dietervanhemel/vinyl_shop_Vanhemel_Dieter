@@ -44,3 +44,4 @@
         <button type="submit" class="btn btn-success mt-2">Save user</button>
     </form>
 @endsection
+

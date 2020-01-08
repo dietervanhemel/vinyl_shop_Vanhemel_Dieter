@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Genre;
+use Facades\App\Helpers\Json;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Facades\App\Helpers\Json;
 
 class GenreController extends Controller
 {
@@ -25,11 +25,6 @@ class GenreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return redirect('admin/genres');
-    }
-
-    public function edit(Genre $genre)
     {
         return redirect('admin/genres');
     }
@@ -55,14 +50,33 @@ class GenreController extends Controller
         ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Genre  $genre
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Genre $genre)
+    {
+        return redirect('admin/genres');
+    }
 
-
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Genre  $genre
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Genre $genre)
+    {
+        return redirect('admin/genres');
+    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Genr  $genr
+     * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Genre $genre)
@@ -78,11 +92,10 @@ class GenreController extends Controller
         ]);
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Genr  $genr
+     * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
     public function destroy(Genre $genre)
@@ -93,6 +106,7 @@ class GenreController extends Controller
             'text' => "The genre <b>$genre->name</b> has been deleted"
         ]);
     }
+
     public function qryGenres()
     {
         $genres = Genre::orderBy('name')

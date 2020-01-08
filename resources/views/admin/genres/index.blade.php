@@ -4,13 +4,12 @@
 
 @section('main')
     <h1>Genres</h1>
-
+    @include('shared.alert')
     <p>
         <a href="#!" class="btn btn-outline-success" id="btn-create">
             <i class="fas fa-plus-circle mr-1"></i>Create new genre
         </a>
     </p>
-
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -28,10 +27,12 @@
     </div>
     @include('admin.genres.modal')
 @endsection
+
 @section('script_after')
     <script>
         $(function () {
             loadTable();
+
             $('tbody').on('click', '.btn-delete', function () {
                 // Get data attributes from td tag
                 let id = $(this).closest('td').data('id');
@@ -68,6 +69,7 @@
                     ]
                 }).show();
             });
+
             $('tbody').on('click', '.btn-edit', function () {
                 // Get data attributes from td tag
                 let id = $(this).closest('td').data('id');
@@ -80,6 +82,7 @@
                 // Show the modal
                 $('#modal-genre').modal('show');
             });
+
             $('#modal-genre form').submit(function (e) {
                 // Don't submit the form
                 e.preventDefault();
@@ -119,6 +122,7 @@
                         }).show();
                     });
             });
+
             $('#btn-create').click(function () {
                 // Update the modal
                 $('.modal-title').text(`New genre`);
@@ -128,7 +132,9 @@
                 // Show the modal
                 $('#modal-genre').modal('show');
             });
+
         });
+
         // Delete a genre
         function deleteGenre(id) {
             // Delete the genre from the database
@@ -151,6 +157,7 @@
                     console.log('error', e);
                 });
         }
+
         // Load genres with AJAX
         function loadTable() {
             $.getJSON('/admin/genres/qryGenres')
@@ -168,10 +175,10 @@
                                    data-records="${value.records_count}"
                                    data-name="${value.name}">
                                     <div class="btn-group btn-group-sm">
-                                        <a href="#!" class="btn btn-outline-success btn-edit">
+                                        <a href="#!" class="btn btn-outline-success btn-edit" data-toggle="tooltip" data-placement="top" title="Edit ${value.name}">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="#!" class="btn btn-outline-danger btn-delete">
+                                        <a href="#!" class="btn btn-outline-danger btn-delete"data-toggle="tooltip" data-placement="top" title="Delete ${value.name}">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
